@@ -11,6 +11,19 @@ import {
 
 import Client from '../models/Client.js';
 import Project from '../models/Project.js';
+import User from '../models/User.js';
+// user type
+
+const UserType = new GraphQLObjectType({
+    name: 'User',
+    fields: () => (
+        {
+            id: { type: GraphQLID },
+            email: { type: GraphQLString },
+            password: { type: GraphQLString },
+        }
+    ),
+});
 
 // client type
 const ClientType = new GraphQLObjectType({
