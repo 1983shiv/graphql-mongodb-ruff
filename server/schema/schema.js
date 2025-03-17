@@ -1,5 +1,8 @@
-import { projects, clients} from "../sampleData.js"
+// import { projects, clients} from "../sampleData.js"
 import { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLSchema, GraphQLList, GraphQLBoolean} from "graphql"
+
+import Client from "../models/Client.js"
+import Project from "../models/Project.js"
 
 // client type
 const ClientType = new GraphQLObjectType({
@@ -23,7 +26,8 @@ const ProjectType = new GraphQLObjectType({
         client: {
             type: ClientType,
             resolve(parent, args) {
-                return clients.find(client => client.id === parent.clientId)
+                // return clients.find(client => client.id === parent.clientId)
+                return Client.findById(parent.clientId)
             }
         }
     })
@@ -35,27 +39,31 @@ const RootQuery = new GraphQLObjectType({
         projects: {
             type: GraphQLList(ProjectType),
             resolve(parent, args) {
-                return projects
+                // return projects, projects object[] is coming from sampleData.js
+                return Project.find()
             }
         },
         project: {
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.find(project => project.id === args.id)
+                // return projects.find(project => project.id === args.id)
+                return Project.findById(args.id)
             }
         },
         clients: {
             type: GraphQLList(ClientType),
             resolve(parent, args) {
-                return clients
+                // return clients, clients object[] is coming from sampleData.js
+                return Client.find()
             }
         },
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return clients.find(client => client.id === args.id)
+                // return clients.find(client => client.id === args.id)
+                return Client.findById(args.id)
             }
         }
     }
