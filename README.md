@@ -1,0 +1,1 @@
+# Ruff Work for GraphQL backend for various purpose
